@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Container, Row, Col, Navbar, Nav, Button, Card, Accordion } from "react-bootstrap";
 import { FaDownload, FaStar, FaComments } from 'react-icons/fa';
-import "./Home.css";
+import "./Home.css"; // ही CSS फाईल तुमच्या प्रोजेक्टमध्ये असल्याची खात्री करा.
 import logo from "./assets/logo.jpeg";
 import video from "./assets/mrk_vid.mp4";
 import screenshot1 from "./assets/ss1.jpg";
@@ -17,56 +17,63 @@ import screenshot9 from "./assets/ss9.jpg";
 import screenshot10 from "./assets/ss10.jpg";
 import screenshot11 from "./assets/ss11.jpg";
 import screenshot13 from "./assets/ss13.jpg";
-import Features from "./Features";
+import Features from "./Features"; // Features.js कॉम्पोनेंट इम्पोर्ट केला आहे.
 
+// स्क्रीनशॉट्सची यादी
 const SCREENSHOTS = [
-    { src: screenshot1, feature: "Dashboard" },
-    { src: screenshot2, feature: "Analytics" },
-    { src: screenshot3, feature: "Settings" },
-    { src: screenshot4, feature: "Profile" },
-    { src: screenshot5, feature: "Notifications" },
-    { src: screenshot6, feature: "Messages" },
-    { src: screenshot7, feature: "Dark Mode" },
-    { src: screenshot8, feature: "Calendar" },
-    { src: screenshot9, feature: "Tasks" },
-    { src: screenshot10, feature: "Files" },
-    { src: screenshot11, feature: "Contacts" },
-    { src: screenshot13, feature: "Reports" }
+    { src: screenshot1, feature: "डॅशबोर्ड" },
+    { src: screenshot2, feature: "ॲनालिटिक्स" },
+    { src: screenshot3, feature: "सेटिंग्ज" },
+    { src: screenshot4, feature: "प्रोफाइल" },
+    { src: screenshot5, feature: "नोटिफिकेशन्स" },
+    { src: screenshot6, feature: "मेसेजेस" },
+    { src: screenshot7, feature: "डार्क मोड" },
+    { src: screenshot8, feature: "कॅलेंडर" },
+    { src: screenshot9, feature: "टास्क" },
+    { src: screenshot10, feature: "फाईल्स" },
+    { src: screenshot11, feature: "कॉन्टॅक्ट्स" },
+    { src: screenshot13, feature: "रिपोर्ट्स" }
 ];
 
+// वैशिष्ट्यांची यादी
 const FEATURES = [
-    { icon: '🚀', title: 'Blazing Fast', desc: 'Optimized for speed and performance' },
-    { icon: '🔒', title: 'Secure', desc: 'Bank-level encryption for your data' },
-    { icon: '🔄', title: 'Sync', desc: 'Seamless across all your devices' },
-    { icon: '🎨', title: 'Customizable', desc: 'Tailor the app to your needs' },
-    { icon: '📊', title: 'Analytics', desc: 'Detailed insights and reports' },
-    { icon: '🤖', title: 'AI Powered', desc: 'Smart suggestions and automation' }
+    { icon: '🚀', title: 'अतिशय वेगवान', desc: 'वेग आणि कामगिरीसाठी ऑप्टिमाइज केलेले' },
+    { icon: '🔒', title: 'सुरक्षित', desc: 'तुमच्या डेटासाठी बँक-स्तरीय एन्क्रिप्शन' },
+    { icon: '🔄', title: 'सिंक', desc: 'तुमच्या सर्व डिव्हाइसेसवर अखंडपणे' },
+    { icon: '🎨', title: 'सानुकूल करण्यायोग्य', desc: 'तुमच्या गरजेनुसार ॲप तयार करा' },
+    { icon: '📊', title: 'ॲनालिटिक्स', desc: 'तपशीलवार माहिती आणि रिपोर्ट्स' },
+    { icon: '🤖', title: 'AI आधारित', desc: 'स्मार्ट सूचना आणि ऑटोमेशन' }
 ];
 
+// वारंवार विचारल्या जाणाऱ्या प्रश्नांची यादी
 const FAQ_DATA = [
     {
-        question: "Is the app free?",
-        answer: "Yes, it has a free plan with premium upgrades available for advanced features."
+        question: "ॲप मोफत आहे का?",
+        answer: "होय, यात एक मोफत प्लॅन आहे आणि प्रगत वैशिष्ट्यांसाठी प्रीमियम अपग्रेड उपलब्ध आहेत."
     },
     {
-        question: "Which devices are supported?",
-        answer: "Our app supports both Android and iOS devices, ensuring compatibility across all major platforms."
+        question: "कोणते डिव्हाइस समर्थित आहेत?",
+        answer: "आमचे ॲप अँड्रॉइड आणि आयओएस दोन्ही डिव्हाइसेसना सपोर्ट करते, ज्यामुळे सर्व प्रमुख प्लॅटफॉर्मवर सुसंगतता सुनिश्चित होते."
     },
     {
-        question: "How do I get started?",
-        answer: "Simply download the app from your app store, create an account, and follow our intuitive onboarding process."
+        question: "मी सुरुवात कशी करू?",
+        answer: "फक्त तुमच्या ॲप स्टोअरवरून ॲप डाउनलोड करा, खाते तयार करा आणि आमच्या सोप्या ऑनबोर्डिंग प्रक्रियेचे अनुसरण करा."
     },
     {
-        question: "Is my data secure?",
-        answer: "Absolutely! We use industry-standard encryption and security measures to protect your data."
+        question: "माझा डेटा सुरक्षित आहे का?",
+        answer: "नक्कीच! आम्ही तुमचा डेटा संरक्षित करण्यासाठी उद्योग-मानक एन्क्रिप्शन आणि सुरक्षा उपाय वापरतो."
     }
 ];
 
-const STATS = [
-    { number: '10K+', label: 'Downloads' },
-    { number: '4.8', label: 'Rating' },
-    { number: '2.5K', label: 'Reviews' }
+// नेव्हिगेशन आयटम्स
+const NAV_ITEMS = [
+    { key: 'home', text: 'होम' },
+    { key: 'features', text: 'वैशिष्ट्ये' },
+    { key: 'screenshots', text: 'स्क्रीनशॉट्स' },
+    { key: 'faq', text: 'FAQ' },
+    { key: 'download', text: 'डाउनलोड' }
 ];
+
 
 const Home = () => {
     const [activeNavItem, setActiveNavItem] = useState('home');
@@ -113,22 +120,20 @@ const Home = () => {
                             whileHover={{ rotate: 360 }}
                             transition={{ duration: 1 }}
                         />
-                        <span className={`fw-bold poppins-bold ${scrolled ? 'text-dark' : 'text-white'}`}>Marketing Pro App</span>
-
+                        <span className={`fw-bold poppins-bold ${scrolled ? 'text-dark' : 'text-white'}`}>मार्केटिंग प्रो ॲप</span>
                     </Navbar.Brand>
-
 
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">
-                            {['home', 'features', 'screenshots', 'faq', 'download'].map((item) => (
+                            {NAV_ITEMS.map((item) => (
                                 <Nav.Link
-                                    key={item}
-                                    href={`#${item}`}
-                                    className={`mx-2 ${activeNavItem === item ? 'active fw-bold' : ''}`}
-                                    onClick={() => scrollToSection(item)}
+                                    key={item.key}
+                                    href={`#${item.key}`}
+                                    className={`mx-2 ${activeNavItem === item.key ? 'active fw-bold' : ''}`}
+                                    onClick={() => scrollToSection(item.key)}
                                 >
-                                    {item.charAt(0).toUpperCase() + item.slice(1)}
+                                    {item.text}
                                 </Nav.Link>
                             ))}
                         </Nav>
@@ -147,11 +152,9 @@ const Home = () => {
                     className="hero-video"
                 >
                     <source src={video} type="video/mp4" />
-                    Your browser does not support the video tag.
+                    तुमचा ब्राउझर व्हिडिओ टॅगला सपोर्ट करत नाही.
                 </video>
-
                 <div className="video-overlay"></div>
-
                 <Container className="hero-content">
                     <Row className="align-items-center min-vh-100">
                         <Col lg={6} className="text-white">
@@ -160,23 +163,22 @@ const Home = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8 }}
                             >
-                                <h1 className="display-3 fw-bold mb-4">Welcome to the Marketing Pro</h1>
-                                <p className="lead mb-5">Experience the future of mobile technology with our revolutionary application</p>
-
+                                <h1 className="display-3 fw-bold mb-4">मार्केटिंग प्रो मध्ये आपले स्वागत आहे</h1>
+                                <p className="lead mb-5">आमच्या क्रांतिकारी ॲप्लिकेशनसह मोबाइल तंत्रज्ञानाच्या भविष्याचा अनुभव घ्या</p>
                                 <div className="d-flex gap-3">
                                     <Button
                                         variant="light"
                                         size="lg"
                                         onClick={() => scrollToSection('download')}
                                     >
-                                        Download Now
+                                        आताच डाउनलोड करा
                                     </Button>
                                     <Button
                                         variant="outline-light"
                                         size="lg"
                                         onClick={() => scrollToSection('features')}
                                     >
-                                        Learn More
+                                        अधिक जाणून घ्या
                                     </Button>
                                 </div>
                             </motion.div>
@@ -184,7 +186,6 @@ const Home = () => {
                     </Row>
                 </Container>
             </section>
-
 
             {/* Fresh Stats Section */}
             <section className="stats-section py-4 bg-white">
@@ -194,28 +195,28 @@ const Home = () => {
                             <motion.div whileInView={{ scale: [0.8, 1] }} transition={{ duration: 0.5 }}>
                                 <FaDownload className="text-primary fs-1 mb-2" />
                                 <div className="h4 fw-bold mb-0">10K+</div>
-                                <small className="text-muted">Downloads</small>
+                                <small className="text-muted">डाउनलोड्स</small>
                             </motion.div>
                         </Col>
                         <Col xs={4} md={2}>
                             <motion.div whileInView={{ scale: [0.8, 1] }} transition={{ duration: 0.5, delay: 0.1 }}>
                                 <FaStar className="text-warning fs-1 mb-2" />
                                 <div className="h4 fw-bold mb-0">4.8</div>
-                                <small className="text-muted">Rating</small>
+                                <small className="text-muted">रेटिंग</small>
                             </motion.div>
                         </Col>
                         <Col xs={4} md={2}>
                             <motion.div whileInView={{ scale: [0.8, 1] }} transition={{ duration: 0.5, delay: 0.2 }}>
                                 <FaComments className="text-success fs-1 mb-2" />
                                 <div className="h4 fw-bold mb-0">2.5K</div>
-                                <small className="text-muted">Reviews</small>
+                                <small className="text-muted">पुनरावलोकने</small>
                             </motion.div>
                         </Col>
                     </Row>
                 </Container>
             </section>
 
-            {/* Features Section */}
+            {/* Features Section (Placeholder for your Features component) */}
             <section id="features" className="py-5 bg-light">
                 <Container className="py-5">
                     <motion.div
@@ -223,8 +224,7 @@ const Home = () => {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="display-4 fw-bold text-center mb-5">Powerful Features</h2>
-
+                        <h2 className="display-4 fw-bold text-center mb-5">शक्तिशाली वैशिष्ट्ये</h2>
                         <Row className="g-4">
                             {FEATURES.map((feature, index) => (
                                 <Col key={index} md={6} lg={4}>
@@ -293,8 +293,7 @@ const Home = () => {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="display-4 fw-bold text-center mb-5">Frequently Asked Questions</h2>
-
+                        <h2 className="display-4 fw-bold text-center mb-5">वारंवार विचारले जाणारे प्रश्न</h2>
                         <Accordion className="mx-auto" style={{ maxWidth: '800px' }}>
                             {FAQ_DATA.map((item, index) => (
                                 <Accordion.Item key={index} eventKey={index.toString()} className="mb-3 border-0 shadow-sm">
@@ -319,26 +318,24 @@ const Home = () => {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="display-4 fw-bold mb-4">Ready to Get Started?</h2>
-                        <p className="lead mb-5">Download now and experience the difference</p>
-
+                        <h2 className="display-4 fw-bold mb-4">सुरुवात करण्यास तयार आहात का?</h2>
+                        <p className="lead mb-5">आताच डाउनलोड करा आणि फरक अनुभवा</p>
                         <div className="d-flex flex-column flex-md-row justify-content-center gap-3">
                             <Button variant="dark" size="lg" className="px-4 py-3">
                                 <div className="d-flex align-items-center gap-3">
                                     <span className="fs-3">🍎</span>
                                     <div className="text-start">
-                                        <div className="small">Download on the</div>
-                                        <div className="fw-bold">App Store</div>
+                                        <div className="small">येथून डाउनलोड करा</div>
+                                        <div className="fw-bold">ॲप स्टोअर</div>
                                     </div>
                                 </div>
                             </Button>
-
                             <Button variant="light" size="lg" className="px-4 py-3 text-dark">
                                 <div className="d-flex align-items-center gap-3">
                                     <span className="fs-3">🤖</span>
                                     <div className="text-start">
-                                        <div className="small">Get it on</div>
-                                        <div className="fw-bold">Google Play</div>
+                                        <div className="small">येथे मिळवा</div>
+                                        <div className="fw-bold">गुगल प्ले</div>
                                     </div>
                                 </div>
                             </Button>
@@ -361,12 +358,11 @@ const Home = () => {
                             <i className="bi bi-whatsapp"></i>
                         </a>
                     </div>
-                    <div className="text-muted small mt-3">© {new Date().getFullYear()} Marketing Pro</div>
+                    <div className="text-muted small mt-3">© {new Date().getFullYear()} मार्केटिंग प्रो</div>
                 </Container>
             </footer>
-
         </div>
     );
 };
 
-export default Home; 
+export default Home;
