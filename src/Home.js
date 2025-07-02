@@ -89,6 +89,7 @@ const Home = () => {
 
     useEffect(() => {
         if (videoRef.current) {
+            // Removed 'muted' prop to enable audio
             videoRef.current.play().catch(error => console.log("Autoplay prevented:", error));
         }
     }, []);
@@ -120,7 +121,8 @@ const Home = () => {
                             whileHover={{ rotate: 360 }}
                             transition={{ duration: 1 }}
                         />
-                        <span className={`fw-bold poppins-bold ${scrolled ? 'text-dark' : 'text-white'}`}>मार्केटिंग प्रो ॲप</span>
+                        {/* The 'poppins-bold' class (defined in Home.css) will apply Poppins */}
+                        <span className={`fw-bold poppins-font ${scrolled ? 'text-dark' : 'text-white'}`}>मार्केटिंग प्रो ॲप</span>
                     </Navbar.Brand>
 
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -130,7 +132,7 @@ const Home = () => {
                                 <Nav.Link
                                     key={item.key}
                                     href={`#${item.key}`}
-                                    className={`mx-2 ${activeNavItem === item.key ? 'active fw-bold' : ''}`}
+                                    className={`mx-2 ${activeNavItem === item.key ? 'active fw-bold' : ''} poppins-font`}
                                     onClick={() => scrollToSection(item.key)}
                                 >
                                     {item.text}
@@ -147,7 +149,6 @@ const Home = () => {
                     ref={videoRef}
                     autoPlay
                     loop
-                    muted
                     playsInline
                     className="hero-video"
                 >
@@ -163,6 +164,7 @@ const Home = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8 }}
                             >
+                                {/* These headings will inherit Poppins from the body or specific classes in Home.css */}
                                 <h1 className="display-3 fw-bold mb-4">मार्केटिंग प्रो मध्ये आपले स्वागत आहे</h1>
                                 <p className="lead mb-5">आमच्या क्रांतिकारी ॲप्लिकेशनसह मोबाइल तंत्रज्ञानाच्या भविष्याचा अनुभव घ्या</p>
                                 <div className="d-flex gap-3">
@@ -170,6 +172,7 @@ const Home = () => {
                                         variant="light"
                                         size="lg"
                                         onClick={() => scrollToSection('download')}
+                                        className="poppins-font" // Ensure button text uses Poppins
                                     >
                                         आताच डाउनलोड करा
                                     </Button>
@@ -177,6 +180,7 @@ const Home = () => {
                                         variant="outline-light"
                                         size="lg"
                                         onClick={() => scrollToSection('features')}
+                                        className="poppins-font" // Ensure button text uses Poppins
                                     >
                                         अधिक जाणून घ्या
                                     </Button>
@@ -194,6 +198,7 @@ const Home = () => {
                         <Col xs={4} md={2}>
                             <motion.div whileInView={{ scale: [0.8, 1] }} transition={{ duration: 0.5 }}>
                                 <FaDownload className="text-primary fs-1 mb-2" />
+                                {/* These texts will inherit Poppins from the body or specific classes in Home.css */}
                                 <div className="h4 fw-bold mb-0">10K+</div>
                                 <small className="text-muted">डाउनलोड्स</small>
                             </motion.div>
@@ -224,6 +229,7 @@ const Home = () => {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                     >
+                        {/* This heading will inherit Poppins from Home.css */}
                         <h2 className="display-4 fw-bold text-center mb-5">शक्तिशाली वैशिष्ट्ये</h2>
                         <Row className="g-4">
                             {FEATURES.map((feature, index) => (
@@ -236,6 +242,7 @@ const Home = () => {
                                         <Card className="h-100 border-0 shadow-sm">
                                             <Card.Body className="text-center p-4">
                                                 <div className="display-4 mb-3">{feature.icon}</div>
+                                                {/* These will inherit Poppins from Card styles in Home.css */}
                                                 <h3 className="h4 mb-3">{feature.title}</h3>
                                                 <p className="text-muted mb-0">{feature.desc}</p>
                                             </Card.Body>
@@ -283,7 +290,7 @@ const Home = () => {
                 </Container>
             </section>
 
-            <Features />
+            <Features /> {/* This component already has its own CSS for Poppins */}
 
             {/* FAQ Section */}
             <section id="faq" className="py-5 bg-light">
@@ -293,10 +300,12 @@ const Home = () => {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                     >
+                        {/* This heading will inherit Poppins from Home.css */}
                         <h2 className="display-4 fw-bold text-center mb-5">वारंवार विचारले जाणारे प्रश्न</h2>
                         <Accordion className="mx-auto" style={{ maxWidth: '800px' }}>
                             {FAQ_DATA.map((item, index) => (
-                                <Accordion.Item key={index} eventKey={index.toString()} className="mb-3 border-0 shadow-sm">
+                                <Accordion.Item key={index} eventKey={index.toString()} className="mb-3 border-0 shadow-sm poppins-font">
+                                    {/* These will inherit Poppins from the accordion item's class */}
                                     <Accordion.Header className="fw-bold">
                                         {item.question}
                                     </Accordion.Header>
@@ -318,10 +327,11 @@ const Home = () => {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                     >
+                        {/* These headings will inherit Poppins from the section or specific classes in Home.css */}
                         <h2 className="display-4 fw-bold mb-4">सुरुवात करण्यास तयार आहात का?</h2>
                         <p className="lead mb-5">आताच डाउनलोड करा आणि फरक अनुभवा</p>
                         <div className="d-flex flex-column flex-md-row justify-content-center gap-3">
-                            <Button variant="dark" size="lg" className="px-4 py-3">
+                            <Button variant="dark" size="lg" className="px-4 py-3 poppins-font">
                                 <div className="d-flex align-items-center gap-3">
                                     <span className="fs-3">🍎</span>
                                     <div className="text-start">
@@ -330,7 +340,7 @@ const Home = () => {
                                     </div>
                                 </div>
                             </Button>
-                            <Button variant="light" size="lg" className="px-4 py-3 text-dark">
+                            <Button variant="light" size="lg" className="px-4 py-3 text-dark poppins-font">
                                 <div className="d-flex align-items-center gap-3">
                                     <span className="fs-3">🤖</span>
                                     <div className="text-start">
@@ -345,7 +355,7 @@ const Home = () => {
             </section>
 
             {/* Footer */}
-            <footer className="py-4 bg-dark text-white text-center">
+            <footer className="py-4 bg-dark text-white text-center poppins-font">
                 <Container>
                     <div className="d-flex justify-content-center gap-4 fs-3">
                         <a href="#" className="text-white" aria-label="YouTube">
@@ -358,6 +368,7 @@ const Home = () => {
                             <i className="bi bi-whatsapp"></i>
                         </a>
                     </div>
+                    {/* This text will inherit Poppins from the footer's class */}
                     <div className="text-muted small mt-3">© {new Date().getFullYear()} मार्केटिंग प्रो</div>
                 </Container>
             </footer>

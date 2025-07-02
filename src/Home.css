@@ -1,7 +1,25 @@
+/* Import Poppins font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Apply Poppins to the body or a specific class */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* If you have specific elements where you want Poppins and not other parts,
+   you can create a class for it, for example: */
+.poppins-font {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Example of a bold Poppins font, if you used a specific weight in your import */
 .poppins-bold {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
+    /* Or any other weight you imported */
 }
+
+
 
 .app-container {
     overflow-x: hidden;
