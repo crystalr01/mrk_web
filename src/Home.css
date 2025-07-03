@@ -6,6 +6,13 @@ body {
     font-family: 'Poppins', sans-serif !important;
 }
 
+:root {
+    --carousel-btn-bg: rgba(0, 0, 0, 0.6);
+    --carousel-btn-hover-bg: rgba(0, 0, 0, 0.8);
+    --light-text: #ffffff;
+}
+
+
 
 /* If you have specific elements where you want Poppins and not other parts,
    you can create a class for it, for example: */
@@ -26,91 +33,6 @@ body {
     overflow-x: hidden;
     font-family: 'Inter', sans-serif;
 }
-
-.custom-carousel {
-    height: 100vh;
-    position: relative;
-}
-
-.custom-screenshot {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: all 0.6s ease;
-    max-height: 90vh;
-    border-radius: 10px;
-    opacity: 0;
-}
-
-.screenshot-active {
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1);
-    z-index: 3;
-    opacity: 1;
-}
-
-.screenshot-prev {
-    left: 10%;
-    transform: translate(-50%, -50%) scale(0.6);
-    z-index: 2;
-    opacity: 0.3;
-}
-
-.screenshot-next {
-    left: 90%;
-    transform: translate(-50%, -50%) scale(0.6);
-    z-index: 2;
-    opacity: 0.3;
-}
-
-.screenshot-hidden {
-    display: none;
-}
-
-.carousel-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 3rem;
-    color: white;
-    background: rgba(0, 0, 0, 0.3);
-    border: none;
-    z-index: 5;
-    padding: 0 10px;
-    cursor: pointer;
-}
-
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 2rem;
-    background: rgba(0, 0, 0, 0.4);
-    border: none;
-    color: white;
-    width: 50px;
-    height: 80px;
-    z-index: 3;
-    cursor: pointer;
-}
-
-.left-ctrl {
-    left: 10px;
-}
-
-.right-ctrl {
-    right: 10px;
-}
-
-
-.left-arrow {
-    left: 20px;
-}
-
-.right-arrow {
-    right: 20px;
-}
-
 
 /* Hero Video Section */
 .hero-video-section {
@@ -157,45 +79,254 @@ body {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Screenshots Section */
-.screenshot-carousel {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 20px;
-    padding: 20px 0;
-    scrollbar-width: none;
-}
-
-.screenshot-carousel::-webkit-scrollbar {
-    display: none;
-}
-
-.screenshot-item {
-    scroll-snap-align: center;
-    min-width: 80%;
+/* --- Section Background --- */
+.screenshot-section-bg {
+    background: linear-gradient(145deg, var(--background-gradient-start), var(--background-gradient-end));
     position: relative;
-    transition: all 0.3s ease;
-    border-radius: 16px;
     overflow: hidden;
+    padding-top: 6rem !important;
+    /* Consistent padding */
+    padding-bottom: 6rem !important;
 }
 
-.screenshot-item img {
-    width: 100%;
-    height: 500px;
-    object-fit: contain;
-    background: #f8f9fa;
-}
-
-.screenshot-caption {
+/* Optional: Background blobs for this section too, if desired */
+.screenshot-section-bg::before,
+.screenshot-section-bg::after {
+    content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
+    border-radius: 50%;
+    opacity: 0.15;
+    filter: blur(80px);
+    z-index: 0;
+}
+
+.screenshot-section-bg::before {
+    width: 280px;
+    height: 280px;
+    background-color: var(--accent-color-light);
+    top: 10%;
+    right: -5%;
+}
+
+.screenshot-section-bg::after {
+    width: 320px;
+    height: 320px;
+    background-color: var(--accent-color-dark);
+    bottom: 5%;
+    left: -8%;
+}
+
+.youtube-icon i {
+    color: #FF0000;
+    transition: transform 0.3s ease;
+}
+
+.youtube-icon:hover i {
+    transform: scale(1.2);
+}
+
+.instagram-icon i {
+    color: #E1306C;
+    transition: transform 0.3s ease;
+}
+
+.instagram-icon:hover i {
+    transform: scale(1.2);
+}
+
+.whatsapp-icon i {
+    color: #25D366;
+    transition: transform 0.3s ease;
+}
+
+.whatsapp-icon:hover i {
+    transform: scale(1.2);
+}
+
+/* --- Section Title --- */
+.screenshot-title-custom {
+    color: var(--text-dark);
+    letter-spacing: -0.04em;
+    position: relative;
+    padding-bottom: 0.75rem;
+    margin-bottom: 3rem !important;
+    z-index: 1;
+}
+
+.screenshot-title-custom::after {
+    content: '';
+    display: block;
+    width: 120px;
+    /* Wider underline */
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    margin: 0.75rem auto 0;
+    border-radius: 3px;
+}
+
+/* --- Carousel Container --- */
+.screenshot-carousel-container {
+    height: 85vh !important;
+    /* Ensure enough space for the framed image */
+    perspective: 1000px;
+    /* For 3D perspective if needed, though Framer Motion handles it */
+}
+
+/* --- Screenshot Image Base Styles --- */
+.screenshot-image {
+    border-radius: 1.5rem !important;
+    /* More rounded corners for all screenshots */
+    box-shadow: 0 1rem 2rem var(--screenshot-shadow-color);
+    /* Stronger shadow */
+    object-fit: contain;
+    /* Ensures image fits without cropping */
+    transition: filter 0.3s ease-out;
+    /* Smooth transition for blur */
+}
+
+.phone-frame-mock {
+    position: relative;
+    padding: 20px 10px 10px 10px;
+    /* More top space */
+    border-radius: 2.5rem;
+    background: #1c1c1e;
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.4),
+        0 0 0 4px #2c2c2e,
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    max-width: 430px;
+    max-height: 70vh;
+    width: auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.phone-frame-mock img {
+    border-radius: 2rem;
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+    position: relative;
+    z-index: 9;
+    /* Add this */
+}
+
+.phone-frame-mock::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 13px;
+    background: #000;
+    border-radius: 8px;
+    z-index: 10;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.6);
+}
+
+
+/* --- Blurred Side Screenshots --- */
+.blurred-screenshot {
+    /* Filter applied directly in JSX for Framer Motion transition compatibility */
+    /* filter: blur(4px); */
+    opacity: 0.3;
+    /* Less opaque */
+    scale: 0.6;
+    /* Smaller */
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    /* fallback for --carousel-btn-bg */
+    color: #fff;
+    border: none;
     padding: 15px;
-    text-align: center;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 4;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.carousel-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* -- FINAL FIX: Ensure only one of left or right applies properly -- */
+.left-ctrl {
+    left: 0px !important;
+    right: auto !important;
+}
+
+.right-ctrl {
+    right: 0px !important;
+    left: auto !important;
+}
+
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .screenshot-section-bg {
+        padding-top: 4rem !important;
+        padding-bottom: 4rem !important;
+    }
+
+    .screenshot-title-custom {
+        font-size: 2.5rem !important;
+    }
+
+    .screenshot-carousel-container {
+        height: 70vh !important;
+        /* Adjust height for smaller screens */
+    }
+
+    .phone-frame-mock {
+        max-width: 300px;
+        /* Smaller phone on mobile */
+        max-height: 60vh;
+        border-width: 10px;
+        padding: 3px;
+    }
+
+    .phone-frame-mock::before {
+        width: 80px;
+        height: 10px;
+    }
+
+
+
+    .blurred-screenshot {
+        filter: blur(2px) !important;
+        /* Less blur on mobile */
+        scale: 0.7;
+        /* Slightly larger on mobile */
+        opacity: 0.4;
+    }
+
+    .carousel-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.8rem;
+        padding: 10px 12px;
+        left: 15px;
+        right: 15px;
+    }
 }
 
 /* General Section Styling */

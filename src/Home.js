@@ -425,7 +425,7 @@ const Home = () => {
                             <motion.div whileInView={{ scale: [0.8, 1] }} transition={{ duration: 0.5 }}>
                                 <FaDownload className="text-primary fs-1 mb-2" />
                                 {/* These texts will inherit Poppins from the body or specific classes in Home.css */}
-                                <div className="h4 fw-bold mb-0">10K+</div>
+                                <div className="h4 fw-bold mb-0">50K+</div>
                                 <small className="text-muted">डाउनलोड्स</small>
                             </motion.div>
                         </Col>
@@ -449,25 +449,56 @@ const Home = () => {
 
 
             {/* Enhanced Screenshots Section */}
-            <section id="screenshots" className="bg-dark text-white py-5">
-                <Container fluid className="px-0">
-                    <div className="position-relative d-flex justify-content-center align-items-center overflow-hidden" style={{ height: '80vh' }}>
+            <section id="screenshots" className="py-6 poppins-font screenshot-section-bg"> {/* Custom background class and increased padding */}
+                <Container className="py-5">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }} // Animation for the whole section
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                    >
+                        <h2 className="display-3 fw-bolder text-center mb-5 screenshot-title-custom poppins-font"> {/* Custom title styling */}
+                            ॲप स्क्रीनशॉट्स {/* App Screenshots */}
+                        </h2>
+                    </motion.div>
+
+                    <div className="position-relative d-flex justify-content-center align-items-center overflow-hidden screenshot-carousel-container" style={{ height: '85vh' }}> {/* Increased height for more visual impact */}
                         {SCREENSHOTS.map((shot, idx) => {
                             const offset = (idx - currentScreenshot + SCREENSHOTS.length) % SCREENSHOTS.length;
                             let positionProps = {};
+                            let imageClasses = "position-absolute img-fluid rounded-4 shadow-lg screenshot-image"; // Base classes for all images
+                            let imageStyle = { maxHeight: '75vh', cursor: 'pointer' }; // Base style
 
-                            if (offset === 0) positionProps = { x: 0, scale: 1, opacity: 1, zIndex: 2 };
-                            else if (offset === 1 || (offset === 0 && currentScreenshot === SCREENSHOTS.length - 1)) positionProps = { x: 200, scale: 0.7, opacity: 0.5, zIndex: 1 };
-                            else if (offset === SCREENSHOTS.length - 1 || (offset === -1 + SCREENSHOTS.length)) positionProps = { x: -200, scale: 0.7, opacity: 0.5, zIndex: 1 };
-                            else return null;
+                            if (offset === 0) { // Current (active) screenshot
+                                positionProps = { x: 0, scale: 1, opacity: 1, zIndex: 3 }; // Higher zIndex for active image
+                                imageClasses += " phone-frame-mock"; // Apply phone frame styling
+                                // Adjust style to fit within the "frame" if needed, or let CSS handle it
+                                imageStyle = {
+                                    ...imageStyle,
+                                    maxHeight: '70vh', // Slightly smaller to fit inside mock frame
+                                    width: 'auto',
+                                    filter: 'none', // Ensure no blur
+                                    // These values will be fine-tuned in CSS for the .phone-frame-mock
+                                    // top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+                                };
+                            } else if (offset === 1) { // Next screenshot
+                                positionProps = { x: 250, scale: 0.6, opacity: 0.3, zIndex: 1 }; // More offset, smaller, less opaque
+                                imageClasses += " blurred-screenshot"; // Apply blur
+                                imageStyle = { ...imageStyle, filter: 'blur(4px)' }; // Apply blur directly
+                            } else if (offset === SCREENSHOTS.length - 1) { // Previous screenshot
+                                positionProps = { x: -250, scale: 0.6, opacity: 0.3, zIndex: 1 }; // More offset, smaller, less opaque
+                                imageClasses += " blurred-screenshot"; // Apply blur
+                                imageStyle = { ...imageStyle, filter: 'blur(4px)' }; // Apply blur directly
+                            } else {
+                                return null; // Hide other screenshots
+                            }
 
                             return (
                                 <motion.img
                                     key={idx}
                                     src={shot.src}
                                     alt={shot.feature}
-                                    className="position-absolute img-fluid rounded shadow-lg"
-                                    style={{ maxHeight: '80vh', cursor: 'pointer' }}
+                                    className={imageClasses}
+                                    style={imageStyle}
                                     animate={positionProps}
                                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                                     onClick={() => {
@@ -477,11 +508,18 @@ const Home = () => {
                                 />
                             );
                         })}
-                        <button className="carousel-btn left-ctrl" onClick={() => setCurrentScreenshot((s) => (s - 1 + SCREENSHOTS.length) % SCREENSHOTS.length)}>‹</button>
-                        <button className="carousel-btn right-ctrl" onClick={() => setCurrentScreenshot((s) => (s + 1) % SCREENSHOTS.length)}>›</button>
+                        {/* Carousel Navigation Buttons */}
+                        <button className="carousel-btn left-ctrl" onClick={() => setCurrentScreenshot((s) => (s - 1 + SCREENSHOTS.length) % SCREENSHOTS.length)}>
+                            <i className="bi bi-chevron-left"></i> {/* Bootstrap Icon */}
+                        </button>
+                        <button className="carousel-btn right-ctrl" onClick={() => setCurrentScreenshot((s) => (s + 1) % SCREENSHOTS.length)}>
+                            <i className="bi bi-chevron-right"></i> {/* Bootstrap Icon */}
+                        </button>
                     </div>
                 </Container>
             </section>
+
+
 
             <Features /> {/* This component already has its own CSS for Poppins */}
 
@@ -661,20 +699,47 @@ const Home = () => {
             <footer className="py-4 bg-dark text-white text-center poppins-font">
                 <Container>
                     <div className="d-flex justify-content-center gap-4 fs-3">
-                        <a href="#" className="text-white" aria-label="YouTube">
+
+                        {/* YouTube */}
+                        <a
+                            href="https://www.youtube.com/@DigitalSchoolSoftware"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-white youtube-icon"
+                            aria-label="YouTube"
+                        >
                             <i className="bi bi-youtube"></i>
                         </a>
-                        <a href="#" className="text-white" aria-label="Instagram">
+
+                        {/* Instagram */}
+                        <a
+                            href="https://www.instagram.com/itpl_sangli/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-white instagram-icon"
+                            aria-label="Instagram"
+                        >
                             <i className="bi bi-instagram"></i>
                         </a>
-                        <a href="#" className="text-white" aria-label="WhatsApp">
+
+                        {/* WhatsApp */}
+                        <a
+                            href="https://wa.me/918055514368"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-white whatsapp-icon"
+                            aria-label="WhatsApp"
+                        >
                             <i className="bi bi-whatsapp"></i>
                         </a>
+
                     </div>
-                    {/* This text will inherit Poppins from the footer's class */}
+
+                    {/* Footer Text */}
                     <div className="text-muted small mt-3">© {new Date().getFullYear()} मार्केटिंग प्रो</div>
                 </Container>
             </footer>
+
         </div>
     );
 };
