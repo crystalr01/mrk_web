@@ -3,8 +3,9 @@
 
 /* Apply Poppins to the body or a specific class */
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif !important;
 }
+
 
 /* If you have specific elements where you want Poppins and not other parts,
    you can create a class for it, for example: */
